@@ -5,25 +5,54 @@ const comemoracao = document.getElementById("comemoracao");
 
 let x = window.innerWidth / 2;
 let y = window.innerHeight / 2;
-const velocidade = 12;
+const velocidade = 3;
 
-/* Movimento */
-document.querySelectorAll("#controles button").forEach(botao => {
-    botao.addEventListener("click", () => {
-        const d = botao.dataset.dir;
-        if (d === "cima") y -= velocidade;
-        if (d === "baixo") y += velocidade;
-        if (d === "esquerda") x -= velocidade;
-        if (d === "direita") x += velocidade;
+let direcaoAtual = null;
+let intervaloMovimento = null;
+
+/* Movimento contínuo */
+function iniciarMovimento(direcao) {
+    direcaoAtual = direcao;
+
+    if (intervaloMovimento) return;
+
+    intervaloMovimento = setInterval(() => {
+        if (direcaoAtual === "cima") y -= velocidade;
+        if (direcaoAtual === "baixo") y += velocidade;
+        if (direcaoAtual === "esquerda") x -= velocidade;
+        if (direcaoAtual === "direita") x += velocidade;
 
         personagem.style.left = x + "px";
         personagem.style.top = y + "px";
 
         verificarColisoes();
+    }, 16);
+}
+
+function pararMovimento() {
+    clearInterval(intervaloMovimento);
+    intervaloMovimento = null;
+    direcaoAtual = null;
+}
+
+/* Eventos touch e mouse */
+document.querySelectorAll("#controles button").forEach(botao => {
+    const dir = botao.dataset.dir;
+
+    botao.addEventListener("touchstart", e => {
+        e.preventDefault();
+        iniciarMovimento(dir);
     });
+
+    botao.addEventListener("touchend", pararMovimento);
+    botao.addEventListener("touchcancel", pararMovimento);
+
+    botao.addEventListener("mousedown", () => iniciarMovimento(dir));
+    botao.addEventListener("mouseup", pararMovimento);
+    botao.addEventListener("mouseleave", pararMovimento);
 });
 
-/* Colisão */
+/* Colisões */
 function verificarColisoes() {
     verificarZona("zona-dados", dados());
     verificarZona("zona-formacao", formacao());
@@ -48,7 +77,7 @@ function verificarZona(id, conteudo) {
     }
 }
 
-/* Conteúdos (SEUS DADOS – intactos) */
+/* Conteúdos */
 function dados() {
 return `
 <h3>Dados Pessoais</h3>
@@ -91,6 +120,10 @@ return `
 function carta() {
 return `
 <h3>Carta</h3>
-<p>Estudante de ADS em busca de oportunidade em TI, com foco em aprendizado contínuo e aplicação prática dos conhecimentos.</p>
+<p>
+Sou estudante de Análise e Desenvolvimento de Sistemas, com grande interesse
+em iniciar minha carreira em Tecnologia da Informação, buscando aprendizado
+contínuo e aplicação prática dos conhecimentos.
+</p>
 `;
 }
