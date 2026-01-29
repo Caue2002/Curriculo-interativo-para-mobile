@@ -13,11 +13,10 @@ html, body {
 }
 
 body {
-    background-image: url("background.gif");
-    background-size: cover;
-    background-position: center;
+    background: url("background.gif") center / cover no-repeat;
     font-family: Arial, sans-serif;
     overflow: hidden;
+    color: white;
 }
 
 /* GUIA */
@@ -25,8 +24,7 @@ body {
     position: fixed;
     top: 10px;
     left: 10px;
-    background: rgba(0,0,0,0.7);
-    color: white;
+    background: rgba(0,0,0,0.75);
     padding: 10px;
     border-radius: 10px;
     font-size: 12px;
@@ -49,10 +47,8 @@ body {
 /* TÓPICOS */
 .topico {
     position: absolute;
-    background-image: url("topic-bg.gif");
-    background-size: cover;
-    color: white;
-    padding: 5px 7px;
+    background: url("topic-bg.gif") center / cover;
+    padding: 5px 8px;
     font-size: 10px;
     border-radius: 8px;
     border: 2px solid white;
@@ -75,26 +71,14 @@ body {
     transform: translateX(-50%);
     width: 92%;
     max-height: 40%;
-    background-image: url("topic-bg.gif");
-    background-size: cover;
+    background: url("topic-bg.gif") center / cover;
     border-radius: 12px;
     border: 2px solid white;
     padding: 12px;
     display: none;
     overflow-y: auto;
-    color: white;
     z-index: 40;
     font-size: 12px;
-}
-
-/* COMEMORAÇÃO */
-#comemoracao {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    display: none;
-    z-index: 60;
 }
 
 /* JOYSTICK */
@@ -125,20 +109,26 @@ body {
 #popup-final {
     position: fixed;
     inset: 0;
+    background: rgba(0,0,0,0.7);
     display: none;
     align-items: center;
     justify-content: center;
-    background: rgba(0,0,0,0.6);
     z-index: 200;
 }
 
 .popup-conteudo {
-    background: #22c55e;
-    padding: 20px 24px;
-    border-radius: 14px;
-    font-size: 16px;
+    background: #16a34a;
     color: black;
+    padding: 24px;
+    border-radius: 16px;
     text-align: center;
+    width: 80%;
+    max-width: 300px;
+}
+
+.popup-conteudo img {
+    width: 60px;
+    margin-bottom: 10px;
 }
 
 /* RODAPÉ */
@@ -148,6 +138,5 @@ footer {
     width: 100%;
     text-align: center;
     font-size: 12px;
-    color: white;
     z-index: 50;
 }

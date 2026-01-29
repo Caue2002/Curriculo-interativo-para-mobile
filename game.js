@@ -1,24 +1,22 @@
 const personagem = document.getElementById("personagem");
 const caixaInfo = document.getElementById("caixa-info");
 const conteudoInfo = document.getElementById("conteudo-info");
-const comemoracao = document.getElementById("comemoracao");
 const popupFinal = document.getElementById("popup-final");
 
-/* CONTEÚDOS (SEUS DADOS — RESTAURADOS) */
+/* CONTEÚDOS DO CURRÍCULO (NÃO REMOVIDOS) */
 function conteudoDados() {
     return `
         <h3>Dados & Objetivo</h3>
         <p>Nome: Cauê Ribeiro Ferreira</p>
         <p>Objetivo: Estágio em Tecnologia da Informação</p>
-        <p>Perfil focado em aprendizado contínuo e desenvolvimento profissional.</p>
     `;
 }
 
 function conteudoFormacao() {
     return `
         <h3>Formação & Conhecimentos</h3>
-        <p>Ensino Superior em andamento na área de TI</p>
-        <p>Conhecimentos em lógica de programação, HTML, CSS, JavaScript e Java</p>
+        <p>Ensino Superior em andamento</p>
+        <p>HTML, CSS, JavaScript e Java</p>
     `;
 }
 
@@ -26,23 +24,21 @@ function conteudoExperiencia() {
     return `
         <h3>Experiência & Habilidades</h3>
         <p>Projetos acadêmicos e pessoais</p>
-        <p>Boa comunicação, trabalho em equipe e organização</p>
+        <p>Comunicação e trabalho em equipe</p>
     `;
 }
 
 function conteudoRedes() {
     return `
         <h3>Redes Sociais</h3>
-        <p>GitHub: github.com/seuusuario</p>
-        <p>LinkedIn: linkedin.com/in/seuperfil</p>
+        <p>GitHub e LinkedIn</p>
     `;
 }
 
 function conteudoCarta() {
     return `
         <h3>Carta de Apresentação</h3>
-        <p>Sou uma pessoa dedicada, curiosa e motivada a crescer na área de tecnologia,
-        buscando aplicar meus conhecimentos e aprender na prática.</p>
+        <p>Motivado a aprender, evoluir e contribuir com a equipe.</p>
     `;
 }
 
@@ -52,6 +48,7 @@ let y = window.innerHeight / 2;
 const velocidade = 2.5;
 
 const vistos = new Set();
+let popupMostrado = false;
 
 /* ATUALIZA POSIÇÃO */
 function atualizarPosicao() {
@@ -78,14 +75,14 @@ joystick.addEventListener("touchend", () => {
 joystick.addEventListener("touchmove", e => {
     if (!ativo) return;
 
-    const touch = e.touches[0];
-    const rect = joystick.getBoundingClientRect();
+    const t = e.touches[0];
+    const r = joystick.getBoundingClientRect();
 
-    const dx = touch.clientX - (rect.left + rect.width / 2);
-    const dy = touch.clientY - (rect.top + rect.height / 2);
+    const dx = t.clientX - (r.left + r.width / 2);
+    const dy = t.clientY - (r.top + r.height / 2);
 
     const max = 35;
-    const dist = Math.min(Math.sqrt(dx * dx + dy * dy), max);
+    const dist = Math.min(Math.hypot(dx, dy), max);
     const ang = Math.atan2(dy, dx);
 
     const mx = Math.cos(ang) * dist;
@@ -96,41 +93,41 @@ joystick.addEventListener("touchmove", e => {
     x += (mx / max) * velocidade;
     y += (my / max) * velocidade;
 
-    x = Math.max(0, Math.min(window.innerWidth, x));
-    y = Math.max(0, Math.min(window.innerHeight, y));
-
     atualizarPosicao();
 });
 
 /* COLISÕES */
 function verificarColisoes() {
-    verificarZona("zona-dados", conteudoDados);
-    verificarZona("zona-formacao", conteudoFormacao);
-    verificarZona("zona-experiencia", conteudoExperiencia);
-    verificarZona("zona-redes", conteudoRedes);
-    verificarZona("zona-carta", conteudoCarta);
+    let emZona = false;
 
-    if (vistos.size === 5) {
+    emZona |= checarZona("zona-dados", conteudoDados);
+    emZona |= checarZona("zona-formacao", conteudoFormacao);
+    emZona |= checarZona("zona-experiencia", conteudoExperiencia);
+    emZona |= checarZona("zona-redes", conteudoRedes);
+    emZona |= checarZona("zona-carta", conteudoCarta);
+
+    if (!emZona) {
+        caixaInfo.style.display = "none";
+    }
+
+    if (vistos.size === 5 && !popupMostrado) {
+        popupMostrado = true;
         popupFinal.style.display = "flex";
         setTimeout(() => popupFinal.style.display = "none", 5000);
     }
 }
 
-function verificarZona(id, conteudo) {
-    const zona = document.getElementById(id).getBoundingClientRect();
+function checarZona(id, conteudo) {
+    const z = document.getElementById(id).getBoundingClientRect();
     const p = personagem.getBoundingClientRect();
 
-    if (
-        p.right > zona.left &&
-        p.left < zona.right &&
-        p.bottom > zona.top &&
-        p.top < zona.bottom
-    ) {
+    if (p.right > z.left && p.left < z.right && p.bottom > z.top && p.top < z.bottom) {
         caixaInfo.style.display = "block";
         conteudoInfo.innerHTML = conteudo();
-        comemoracao.style.display = "block";
         vistos.add(id);
+        return true;
     }
+    return false;
 }
 
 atualizarPosicao();
