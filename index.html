@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Currículo Interativo Mobile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Guia -->
+    <div id="guia">
+        Use os botões para mover o personagem e encoste nos tópicos.
+    </div>
+
+    <!-- Mapa -->
+    <div id="mapa">
+
+        <!-- Personagem -->
+        <div id="personagem">
+            <img src="usuario.gif" alt="Personagem">
+        </div>
+
+        <!-- Tópicos -->
+        <div id="zona-dados" class="topico">Dados & Objetivo</div>
+        <div id="zona-formacao" class="topico">Formação</div>
+        <div id="zona-experiencia" class="topico">Experiência</div>
+        <div id="zona-redes" class="topico">Redes</div>
+        <div id="zona-carta" class="topico">Carta</div>
+
+    </div>
+
+    <!-- Popup -->
+    <div id="caixa-info">
+        <div id="conteudo-info"></div>
+    </div>
+
+    <!-- Comemoração -->
+    <img id="comemoracao" src="comemoracao.gif" alt="Comemoração">
+
+    <!-- Controles -->
+    <div id="controles">
+        <button data-dir="cima">▲</button>
+        <div>
+            <button data-dir="esquerda">◀</button>
+            <button data-dir="baixo">▼</button>
+            <button data-dir="direita">▶</button>
+        </div>
+    </div>
+
+    <footer>
+        Desenvolvido por Cauê Ribeiro Ferreira
+    </footer>
+
+    <script src="game.js"></script>
+</body>
+</html>
