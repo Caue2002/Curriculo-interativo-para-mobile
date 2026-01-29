@@ -2,51 +2,102 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Currículo Interativo Mobile</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Currículo Interativo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.jpg">
 </head>
 
 <body>
 
-    <div id="joystick-base">
-    <div id="joystick-stick"></div>
-</div>
-
-    <!-- Guia -->
+    <!-- Guia de instruções -->
     <div id="guia">
-        Use os botões para mover o personagem e encoste nos tópicos.
+        <h3>Como jogar</h3>
+        <p>Use o joystick para se mover pelo mapa</p>
+        <p>Aproxime-se dos tópicos para ver as informações</p>
     </div>
 
-    <!-- Mapa -->
-    <div id="mapa">
-
-        <!-- Personagem -->
-        <div id="personagem">
-            <img src="usuario.gif" alt="Personagem">
-        </div>
-
-        <!-- Tópicos -->
-        <div id="zona-dados" class="topico">Dados & Objetivo</div>
-        <div id="zona-formacao" class="topico">Formação</div>
-        <div id="zona-experiencia" class="topico">Experiência</div>
-        <div id="zona-redes" class="topico">Redes</div>
-        <div id="zona-carta" class="topico">Carta</div>
-
+    <!-- Personagem -->
+    <div id="personagem">
+        <img id="imagem-usuario" src="usuario.gif" alt="Personagem">
     </div>
 
-    <!-- Popup -->
+    <!-- Gramas -->
+    <img id="g1" src="grama.jpg">
+    <img id="g2" src="grama.jpg">
+    <img id="g3" src="gramaL.jpg">
+    <img id="g4" src="gramaL.jpg">
+    <img id="g5" src="gramaL.jpg">
+    <img id="g6" src="grama.jpg">
+    <img id="g7" src="grama.jpg">
+    <img id="g8" src="gramaL.jpg">
+    <img id="g9" src="gramaL.jpg">
+    <img id="g10" src="gramaL.jpg">
+    <img id="g11" src="gramaL.jpg">
+    <img id="g12" src="gramaL.jpg">
+    <img id="g13" src="gramaLe.jpg">
+    <img id="g14" src="gramaLe.jpg">
+    <img id="g15" src="gramaLe.jpg">
+    <img id="g16" src="gramaLe.jpg">
+    <img id="g17" src="gramaLe.jpg">
+    <img id="g18" src="gramaLe.jpg">
+    <img id="g19" src="grama.jpg">
+    <img id="g20" src="gramaLe.jpg">
+    <img id="g21" src="gramaLe.jpg">
+
+    <!-- Pedras -->
+    <img id="p1" src="pedra.jpg">
+    <img id="p2" src="pedra.jpg">
+    <img id="p3" src="pedra.jpg">
+    <img id="p4" src="pedra.jpg">
+    <img id="p5" src="pedra.jpg">
+
+    <!-- Árvores -->
+    <img id="a1" src="arvore.gif">
+    <img id="a2" src="arvore.gif">
+    <img id="a3" src="arvore.gif">
+    <img id="a4" src="arvore.gif">
+    <img id="a5" src="arvore.gif">
+    <img id="a6" src="arvore.gif">
+    <img id="a7" src="arvore.gif">
+    <img id="a8" src="arvore.gif">
+    <img id="a9" src="arvore.gif">
+    <img id="a10" src="arvore.gif">
+    <img id="a11" src="arvore.gif">
+    <img id="a12" src="arvore.gif">
+    <img id="a13" src="arvore.gif">
+
+    <!-- Tópicos -->
+    <div id="zona-dados" class="topico">Dados & Objetivo</div>
+    <div id="zona-formacao" class="topico">Formação & Conhecimentos</div>
+    <div id="zona-experiencia" class="topico">Experiência & Habilidades</div>
+    <div id="zona-redes" class="topico">Redes Sociais</div>
+    <div id="zona-carta" class="topico">Carta de Apresentação</div>
+
+    <!-- Caixa de informações -->
     <div id="caixa-info">
         <div id="conteudo-info"></div>
     </div>
 
-    <!-- Comemoração -->
-    <img id="comemoracao" src="comemoracao.gif" alt="Comemoração">
+    <!-- Imagem de comemoração -->
+    <img src="comemoracao.gif" alt="Comemoração" id="comemoracao">
 
+    <!-- JOYSTICKS -->
+    <div id="joystick-esquerdo" class="joystick">
+        <div class="joystick-handle"></div>
+    </div>
+
+    <div id="joystick-direito" class="joystick">
+        <div class="joystick-handle"></div>
+    </div>
+
+    <!-- Rodapé -->
     <footer>
         Desenvolvido por Cauê Ribeiro Ferreira
     </footer>
 
+    <!-- Script -->
     <script src="game.js"></script>
+
 </body>
 </html>

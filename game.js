@@ -3,7 +3,7 @@ const caixaInfo = document.getElementById("caixa-info");
 const conteudoInfo = document.getElementById("conteudo-info");
 const comemoracao = document.getElementById("comemoracao");
 
-/*CONTROLE DE TÓPICOS VISITADOS  */
+/* CONTROLE DE VISITA */
 const topicosVisitados = {
     dados: false,
     formacao: false,
@@ -14,7 +14,7 @@ const topicosVisitados = {
 
 let popupMostrado = false;
 
-/*  POSIÇÃO */
+/* POSIÇÃO */
 let x = window.innerWidth / 2;
 let y = window.innerHeight / 2;
 const velocidade = 2.5;
@@ -31,7 +31,11 @@ function configurarJoystick(id, callback) {
     const handle = joystick.querySelector(".joystick-handle");
     let ativo = false;
 
-    joystick.addEventListener("touchstart", () => ativo = true);
+    joystick.addEventListener("touchstart", e => {
+        ativo = true;
+        e.preventDefault();
+    });
+
     joystick.addEventListener("touchend", () => {
         ativo = false;
         handle.style.transform = "translate(-50%, -50%)";
@@ -47,7 +51,7 @@ function configurarJoystick(id, callback) {
         const dy = touch.clientY - (rect.top + rect.height / 2);
 
         const max = 35;
-        const dist = Math.min(Math.sqrt(dx*dx + dy*dy), max);
+        const dist = Math.min(Math.sqrt(dx * dx + dy * dy), max);
         const ang = Math.atan2(dy, dx);
 
         const mx = Math.cos(ang) * dist;
@@ -58,7 +62,7 @@ function configurarJoystick(id, callback) {
     });
 }
 
-/* Movimento */
+/* MOVIMENTO */
 configurarJoystick("joystick-esquerdo", (dx, dy) => {
     x += dx * velocidade * 2;
     y += dy * velocidade * 2;
@@ -67,7 +71,7 @@ configurarJoystick("joystick-esquerdo", (dx, dy) => {
 
 configurarJoystick("joystick-direito", () => {});
 
-/* COLISÕES  */
+/* COLISÕES */
 function verificarColisoes() {
     verificarZona("zona-dados", dados, "dados");
     verificarZona("zona-formacao", formacao, "formacao");
@@ -76,7 +80,7 @@ function verificarColisoes() {
     verificarZona("zona-carta", carta, "carta");
 }
 
-function verificarZona(id, funcConteudo, chave) {
+function verificarZona(id, func, chave) {
     const zona = document.getElementById(id).getBoundingClientRect();
     const p = personagem.getBoundingClientRect();
 
@@ -87,7 +91,7 @@ function verificarZona(id, funcConteudo, chave) {
         p.top < zona.bottom
     ) {
         caixaInfo.style.display = "block";
-        conteudoInfo.innerHTML = funcConteudo();
+        conteudoInfo.innerHTML = func();
         comemoracao.style.display = "block";
 
         if (!topicosVisitados[chave]) {
@@ -97,78 +101,23 @@ function verificarZona(id, funcConteudo, chave) {
     }
 }
 
-/* VERIFICA SE TODOS FORAM VISTOS  */
+/* POPUP FINAL */
 function verificarConclusao() {
-    const todosVistos = Object.values(topicosVisitados).every(v => v);
-
-    if (todosVistos && !popupMostrado) {
+    if (Object.values(topicosVisitados).every(v => v) && !popupMostrado) {
         popupMostrado = true;
-        mostrarPopupParabens();
+
+        const popup = document.createElement("div");
+        popup.id = "popup-parabens";
+        popup.innerHTML = `
+            <h2>Parabéns!</h2>
+            <p>Você explorou todo o currículo interativo.</p>
+        `;
+        document.body.appendChild(popup);
+
+        popup.style.display = "block";
+
+        setTimeout(() => {
+            popup.remove();
+        }, 5000);
     }
-}
-
-/* POPUP FINAL  */
-function mostrarPopupParabens() {
-    const popup = document.createElement("div");
-    popup.id = "popup-parabens";
-    popup.innerHTML = `
-        <h2>Parabéns!</h2>
-        <p>Você explorou todo o meu currículo interativo.</p>
-        <p>Obrigado por visitar.</p>
-    `;
-    document.body.appendChild(popup);
-
-    popup.style.display = "block";
-
-    setTimeout(() => {
-        popup.style.display = "none";
-        popup.remove();
-    }, 5000);
-}
-
-/* CONTEÚDOS */
-function dados() {
-return `
-<h3>Dados Pessoais</h3>
-<p>Nacionalidade: Brasileira</p>
-<p>Nascimento: 25/10/2002</p>
-<p>Endereço: Zona Sul – São Paulo</p>
-<p>Celular: (11) 9 1422-2424</p>
-<p>E-mail: caueribeiroferreira@gmail.com</p>
-`;
-}
-
-function formacao() {
-return `
-<h3>Formação</h3>
-<p>Análise e Desenvolvimento de Sistemas – Uninter</p>
-<p>2025 – 2027</p>
-<p>Excel Básico – Fundação Bradesco</p>
-`;
-}
-
-function experiencia() {
-return `
-<h3>Experiência</h3>
-<p>Hairline (2024–2025)</p>
-<p>Cocadinha (2023)</p>
-`;
-}
-
-function redes() {
-return `
-<h3>Redes</h3>
-<p>GitHub: Caue2002</p>
-<p>LinkedIn: ribeiroferreiracaue</p>
-`;
-}
-
-function carta() {
-return `
-<h3>Carta</h3>
-<p>
-Sou estudante de Análise e Desenvolvimento de Sistemas,
-buscando iniciar carreira em TI com aprendizado contínuo.
-</p>
-`;
 }
