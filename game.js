@@ -3,189 +3,269 @@ const caixaInfo = document.getElementById("caixa-info");
 const conteudoInfo = document.getElementById("conteudo-info");
 const popupFinal = document.getElementById("popup-final");
 
-/* =============================
-   CONTEÚDO DO CURRÍCULO
-   (NÃO REMOVER)
-============================= */
-
+/* ============================= CONTEÚDO DO CURRÍCULO (NÃO REMOVER) ============================= */
 // Dados Pessoais
-function conteudoDados() { return `
-<h2>Dados Pessoais</h2>
-<p><strong>Nacionalidade:</strong> Brasileira</p>
-<p><strong>Data de nascimento:</strong> 25/10/2002</p>
-<p><strong>Endereço:</strong> Zona Sul, São Paulo - SP, 04951-050</p>
-<p><strong>Celular (WhatsApp):</strong> (11) 9 1422-2424</p>
-<p><strong>E-mail:</strong> caueribeiroferreira@gmail.com</p>
-<hr>
-<h3>Objetivo Profissional</h3>
-<p>Desenvolvedor de Software</p>
-<p>Analista de Dados</p>
-<p>Analista de Segurança da Informação / Cibernética</p>`;}
+function conteudoDados() {
+  return `
+### Dados Pessoais
 
+Nacionalidade: Brasileira 
+Data de nascimento: 25/10/2002 
+Endereço: Zona Sul, São Paulo - SP, 04951-050 
+Celular (WhatsApp): (11) 9 1422-2424 
+E-mail: caueribeiroferreira@gmail.com
+#### Objetivo Profissional
+
+Desenvolvedor de Software 
+Analista de Dados 
+Analista de Segurança da Informação / Cibernética 
+`;
+}
 // Formação Acadêmica
-function conteudoFormacao() { return `
-<h2>Formação Acadêmica</h2>
-<p><strong>Faculdade Uninter</strong></p>
-<p>Tecnólogo em Análise e Desenvolvimento de Sistemas</p>
-<p>07/2025 a 12/2027</p><br>
-<p><strong>Ensino Médio:</strong> Completo</p>
-<hr>
-<h3>Conhecimentos Técnicos</h3>
-<p><strong>Front End:</strong> HTML, CSS, JavaScript</p>
-<p><strong>UI/UX:</strong> Figma, Canva</p>
-<p><strong>Back End:</strong> Python, Java</p>
-<p><strong>Ferramentas:</strong> Word, Power BI, Inteligência Artificial</p>
-<p><strong>Excel Básico:</strong> Fundação Bradesco (2016)</p>`;}
+function conteudoFormacao() {
+  return `
+### Formação Acadêmica
 
+Faculdade Uninter 
+Tecnólogo em Análise e Desenvolvimento de Sistemas 
+07/2025 a 12/2027 
+Ensino Médio: Completo
+#### Conhecimentos Técnicos
+
+Front End: HTML, CSS, JavaScript 
+UI/UX: Figma, Canva 
+Back End: Python, Java 
+Ferramentas: Word, Power BI, Inteligência Artificial 
+Excel Básico: Fundação Bradesco (2016) 
+`;
+}
 // Experiência Profissional
-function conteudoExperiencia() { return `
-<h2>Experiência Profissional</h2>
-<p><strong>Hairline Cabelos e Acessórios LTDA</strong></p>
-<p>02/2024 – 05/2025</p>
-<p>Venda de produtos, operação de caixa, organização de estoque, atendimento ao cliente, auxílio no marketing e operador de vendas E-commerce.</p>
-<br>
-<p><strong>Cocadinha Atacado e Varejo – Doceria</strong></p>
-<p>03/2023 – 09/2023</p>
-<p>Organização de estoque, recebimento e armazenamento de mercadorias, auxílio na operação de caixa, atendimento ao cliente e serviços gerais.</p>
-<hr>
-<h3>Habilidades</h3>
-<p>Atitude positiva</p>
-<p>Facilidade de comunicação</p>
-<p>Ética, honestidade e integridade</p>
-<p>Pontualidade, flexibilidade e adaptação</p>
-<p>Inteligência emocional</p>
-<p>Iniciativa e proatividade</p>
-<p>Trabalho em equipe</p>
-<p>Interessado em evoluir</p>
-<p>Motivado a aprender coisas novas</p>
-<p>Raciocínio lógico</p>`;}
+function conteudoExperiencia() {
+  return `
+### Experiência Profissional
 
+Hairline Cabelos e Acessórios LTDA 
+02/2024 – 05/2025 
+Venda de produtos, operação de caixa, organização de estoque, atendimento ao cliente, auxílio no marketing e operador de vendas E-commerce. 
+Cocadinha Atacado e Varejo – Doceria 
+03/2023 – 09/2023 
+Organização de estoque, recebimento e armazenamento de mercadorias, auxílio na operação de caixa, atendimento ao cliente e serviços gerais.
+#### Habilidades
+
+Atitude positiva 
+Facilidade de comunicação 
+Ética, honestidade e integridade 
+Pontualidade, flexibilidade e adaptação 
+Inteligência emocional 
+Iniciativa e proatividade 
+Trabalho em equipe 
+Interessado em evoluir 
+Motivado a aprender coisas novas 
+Raciocínio lógico 
+`;
+}
 // Redes Sociais
-function conteudoRedes() { return `
-<h2>Redes Sociais</h2>
-<p><a href="https://github.com/Caue2002" target="_blank">GitHub: github.com/Caue2002</a></p>
-<p><a href="https://www.linkedin.com/in/ribeiroferreiracaue" target="_blank">LinkedIn: linkedin.com/in/ribeiroferreiracaue</a></p>`;}
+function conteudoRedes() {
+  return `
+### Redes Sociais
 
+[GitHub: github.com/Caue2002](https://github.com/Caue2002) 
+[LinkedIn: linkedin.com/in/ribeiroferreiracaue](https://www.linkedin.com/in/ribeiroferreiracaue) 
+`;
+}
 // Carta de Apresentação
-function conteudoCarta() { return `
-<h2>Carta de Apresentação</h2>
-<p>Sou estudante de Análise e Desenvolvimento de Sistemas, com grande interesse em iniciar minha carreira na área de Tecnologia da Informação.</p>
-<p>Possuo conhecimentos em HTML, CSS, JavaScript, Python e Java, além de familiaridade com ferramentas como Power BI, Figma e conceitos de UI/UX.</p>
-<p>Busco uma oportunidade onde eu possa aplicar meus conhecimentos, aprender continuamente e contribuir com soluções eficientes na área de TI.</p>`;}
+function conteudoCarta() {
+  return `
+### Carta de Apresentação
 
-/* =============================
-   MOVIMENTO
-============================= */
+Sou estudante de Análise e Desenvolvimento de Sistemas, com grande interesse em iniciar minha carreira na área de Tecnologia da Informação. 
+Possuo conhecimentos em HTML, CSS, JavaScript, Python e Java, além de familiaridade com ferramentas como Power BI, Figma e conceitos de UI/UX. 
+Busco uma oportunidade onde eu possa aplicar meus conhecimentos, aprender continuamente e contribuir com soluções eficientes na área de TI. 
+`;
+}
 
+/* ============================= MOVIMENTO ============================= */
 let x = window.innerWidth / 2;
 let y = window.innerHeight / 2;
 const velocidade = 2.5;
 
 const vistos = {
-    "zona-dados": false,
-    "zona-formacao": false,
-    "zona-experiencia": false,
-    "zona-redes": false,
-    "zona-carta": false
+  "zona-dados": false,
+  "zona-formacao": false,
+  "zona-experiencia": false,
+  "zona-redes": false,
+  "zona-carta": false
 };
 
 let popupFinalMostrado = false;
 
 /* Atualiza posição */
 function atualizarPosicao() {
-    personagem.style.left = x + "px";
-    personagem.style.top = y + "px";
-    verificarColisoes();
+  personagem.style.left = x + "px";
+  personagem.style.top = y + "px";
+  verificarColisoes();
 }
 
-/* =============================
-   JOYSTICK
-============================= */
-
+/* ============================= JOYSTICK ============================= */
 const joystick = document.getElementById("joystick");
 const handle = joystick.querySelector(".joystick-handle");
 let ativo = false;
 
 joystick.addEventListener("touchstart", e => {
-    ativo = true;
-    e.preventDefault();
+  ativo = true;
+  e.preventDefault();
 });
 
 joystick.addEventListener("touchend", () => {
-    ativo = false;
-    handle.style.transform = "translate(-50%, -50%)";
+  ativo = false;
+  handle.style.transform = "translate(-50%, -50%)";
 });
 
 joystick.addEventListener("touchmove", e => {
-    if (!ativo) return;
+  if (!ativo) return;
 
-    const t = e.touches[0];
-    const r = joystick.getBoundingClientRect();
+  const t = e.touches[0];
+  const r = joystick.getBoundingClientRect();
+  const dx = t.clientX - (r.left + r.width / 2);
+  const dy = t.clientY - (r.top + r.height / 2);
 
-    const dx = t.clientX - (r.left + r.width / 2);
-    const dy = t.clientY - (r.top + r.height / 2);
+  const max = 35;
+  const dist = Math.min(Math.hypot(dx, dy), max);
+  const ang = Math.atan2(dy, dx);
+  const mx = Math.cos(ang) * dist;
+  const my = Math.sin(ang) * dist;
 
-    const max = 35;
-    const dist = Math.min(Math.hypot(dx, dy), max);
-    const ang = Math.atan2(dy, dx);
+  handle.style.transform = `translate(${mx - 20}px, ${my - 20}px)`;
 
-    const mx = Math.cos(ang) * dist;
-    const my = Math.sin(ang) * dist;
+  x += (mx / max) * velocidade;
+  y += (my / max) * velocidade;
 
-    handle.style.transform = `translate(${mx - 20}px, ${my - 20}px)`;
-
-    x += (mx / max) * velocidade;
-    y += (my / max) * velocidade;
-
-    atualizarPosicao();
+  atualizarPosicao();
 });
 
-/* =============================
-   COLISÕES (CORRIGIDO)
-============================= */
-
+/* ============================= COLISÕES (CORRIGIDO) ============================= */
 function verificarColisoes() {
-    let emAlgumaZona = false;
+  let emAlgumaZona = false;
+  emAlgumaZona = checarZona("zona-dados", conteudoDados) || emAlgumaZona;
+  emAlgumaZona = checarZona("zona-formacao", conteudoFormacao) || emAlgumaZona;
+  emAlgumaZona = checarZona("zona-experiencia", conteudoExperiencia) || emAlgumaZona;
+  emAlgumaZona = checarZona("zona-redes", conteudoRedes) || emAlgumaZona;
+  emAlgumaZona = checarZona("zona-carta", conteudoCarta) || emAlgumaZona;
 
-    emAlgumaZona |= checarZona("zona-dados", conteudoDados);
-    emAlgumaZona |= checarZona("zona-formacao", conteudoFormacao);
-    emAlgumaZona |= checarZona("zona-experiencia", conteudoExperiencia);
-    emAlgumaZona |= checarZona("zona-redes", conteudoRedes);
-    emAlgumaZona |= checarZona("zona-carta", conteudoCarta);
+  if (!emAlgumaZona) {
+    caixaInfo.style.display = "none";
+  }
 
-    if (!emAlgumaZona) {
-        caixaInfo.style.display = "none";
-    }
-
-    if (Object.values(vistos).every(v => v) && !popupFinalMostrado) {
-        popupFinalMostrado = true;
-        popupFinal.style.display = "flex";
-
-        setTimeout(() => {
-            popupFinal.style.display = "none";
-        }, 5000);
-    }
+  if (Object.values(vistos).every(v => v) && !popupFinalMostrado) {
+    popupFinalMostrado = true;
+    popupFinal.style.display = "flex";
+    setTimeout(() => {
+      popupFinal.style.display = "none";
+    }, 5000);
+  }
 }
 
 function checarZona(id, conteudo) {
-    const zona = document.getElementById(id).getBoundingClientRect();
-    const p = personagem.getBoundingClientRect();
+  const zona = document.getElementById(id).getBoundingClientRect();
+  const p = personagem.getBoundingClientRect();
+  const colidiu = p.right > zona.left && p.left < zona.right && p.bottom > zona.top && p.top < zona.bottom;
 
-    const colidiu =
-        p.right > zona.left &&
-        p.left < zona.right &&
-        p.bottom > zona.top &&
-        p.top < zona.bottom;
-
-    if (colidiu) {
-        caixaInfo.style.display = "block";
-        conteudoInfo.innerHTML = conteudo();
-        vistos[id] = true;
-        return true;
-    }
-
-    return false;
+  if (colidiu) {
+    caixaInfo.style.display = "block";
+    conteudoInfo.innerHTML = conteudo();
+    vistos[id] = true;
+    return true;
+  }
+  return false;
 }
 
 /* Inicial */
 atualizarPosicao();
+
+/* === [ADICIONADO] Recursos Mobile extras: espelhamento e progresso === */
+(function () {
+  // 1) Criar a barra de progresso dinamicamente
+  const progresso = document.createElement('div');
+  progresso.id = 'progresso';
+  progresso.innerHTML = '<div class="barra" aria-hidden="true"></div>';
+  document.body.appendChild(progresso);
+  const barra = progresso.querySelector('.barra');
+
+  function atualizarBarra() {
+    const total = Object.keys(vistos).length;      // 5 zonas
+    const lidos = Object.values(vistos).filter(Boolean).length;
+    const pct = (lidos / total) * 100;
+    barra.style.width = pct + '%';
+  }
+
+  atualizarBarra();
+  const iv = setInterval(atualizarBarra, 200);
+
+  // 2) Espelhar o personagem quando o movimento no joystick for para a esquerda/direita
+  const img = document.getElementById('imagem-usuario');
+
+  joystick.addEventListener('touchmove', (e) => {
+    const t = e.touches[0];
+    const r = joystick.getBoundingClientRect();
+    const dx = t.clientX - (r.left + r.width / 2);
+
+    if (dx < -4) {
+      img.classList.add('virado-esquerda');
+    } else if (dx > 4) {
+      img.classList.remove('virado-esquerda');
+    }
+  }, { passive: true });
+
+  // Fallback por deslocamento real na tela (caso no futuro haja outro input)
+  let prevX = x;
+  const flipLoop = () => {
+    if (x < prevX - 0.5) {
+      img.classList.add('virado-esquerda');
+    } else if (x > prevX + 0.5) {
+      img.classList.remove('virado-esquerda');
+    }
+    prevX = x;
+    requestAnimationFrame(flipLoop);
+  };
+  requestAnimationFrame(flipLoop);
+})();
+/* === [ADICIONADO] Recursos Mobile extras: espelhamento e progresso === */
+(function () {
+  // 1) Criar a barra de progresso dinamicamente
+  const progresso = document.createElement('div');
+  progresso.id = 'progresso';
+  progresso.innerHTML = '<div class="barra" aria-hidden="true"></div>';
+  document.body.appendChild(progresso);
+  const barra = progresso.querySelector('.barra');
+
+  function atualizarBarra() {
+    const total = Object.keys(vistos).length;      // 5 zonas
+    const lidos = Object.values(vistos).filter(Boolean).length;
+    const pct = (lidos / total) * 100;
+    barra.style.width = pct + '%';
+  }
+
+  atualizarBarra();
+  setInterval(atualizarBarra, 200);
+
+  // 2) Espelhar o personagem quando mover para a esquerda/direita
+  const img = document.getElementById('imagem-usuario');
+
+  joystick.addEventListener('touchmove', (e) => {
+    const t = e.touches[0];
+    const r = joystick.getBoundingClientRect();
+    const dx = t.clientX - (r.left + r.width / 2);
+    if (dx < -4) img.classList.add('virado-esquerda');
+    else if (dx > 4) img.classList.remove('virado-esquerda');
+  }, { passive: true });
+
+  // Fallback por deslocamento real (se no futuro houver outro input)
+  let prevX = x;
+  const flipLoop = () => {
+    if (x < prevX - 0.5) img.classList.add('virado-esquerda');
+    else if (x > prevX + 0.5) img.classList.remove('virado-esquerda');
+    prevX = x;
+    requestAnimationFrame(flipLoop);
+  };
+  requestAnimationFrame(flipLoop);
+})();

@@ -1,4 +1,4 @@
-Currículo Interativo Mobile (Estilo Jogo)
+Currículo Interativo 
 Visão Geral
 
 Este projeto é um currículo interativo desenvolvido com foco total em dispositivos móveis, utilizando conceitos de jogos 2D para apresentar informações profissionais de forma criativa, dinâmica e intuitiva.
@@ -21,7 +21,7 @@ Tecnologias Utilizadas
 
 HTML5
 
-CSS3 (Mobile First)
+CSS3 
 
 JavaScript (Vanilla)
 
