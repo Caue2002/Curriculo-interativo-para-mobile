@@ -8,7 +8,7 @@ const popupFinal = document.getElementById("popup-final");
 function conteudoDados() {
 return `
 # Dados Pessoais
-_________________________________________
+
 Nacionalidade: Brasileira 
 Data de nascimento: 25/10/2002 
 Endereço: Zona Sul, São Paulo - SP, 04951-050 
@@ -16,7 +16,7 @@ Celular (WhatsApp): (11) 9 1422-2424
 E-mail: caueribeiroferreira@gmail.com
 
 # Objetivo Profissional
-__________________________________________
+
 Desenvolvedor de Software 
 Analista de Dados 
 Analista de Segurança da Informação / Cibernética 
@@ -26,14 +26,14 @@ Analista de Segurança da Informação / Cibernética
 function conteudoFormacao() {
 return `
 #Formação Acadêmica
-___________________________________________
+
 Faculdade Uninter 
 Tecnólogo em Análise e Desenvolvimento de Sistemas 
 07/2025 a 12/2027 
 Ensino Médio: Completo
 
 #Conhecimentos Técnicos
-___________________________________________
+
 Front End: HTML, CSS, JavaScript 
 UI/UX: Figma, Canva 
 Back End: Python, Java 
@@ -45,17 +45,17 @@ Excel Básico: Fundação Bradesco (2016)
 function conteudoExperiencia() {
 return `
 #Experiência Profissional
-___________________________________________
+
 Hairline Cabelos e Acessórios LTDA 
 02/2024 – 05/2025 
 Venda de produtos, operação de caixa, organização de estoque, atendimento ao cliente, auxílio no marketing e operador de vendas E-commerce. 
-___________________________________________
+
 Cocadinha Atacado e Varejo – Doceria 
 03/2023 – 09/2023 
 Organização de estoque, recebimento e armazenamento de mercadorias, auxílio na operação de caixa, atendimento ao cliente e serviços gerais.
 
 #Habilidades
-___________________________________________
+
 Atitude positiva 
 Facilidade de comunicação 
 Ética, honestidade e integridade 
@@ -72,7 +72,7 @@ Raciocínio lógico
 function conteudoRedes() {
 return `
 #Redes Sociais
-___________________________________________
+
 [GitHub: github.com/Caue2002](https://github.com/Caue2002) 
 [LinkedIn: linkedin.com/in/ribeiroferreiracaue](https://www.linkedin.com/in/ribeiroferreiracaue) 
 `;
@@ -81,7 +81,7 @@ ___________________________________________
 function conteudoCarta() {
 return `
 #Carta de Apresentação
-___________________________________________
+
 Sou estudante de Análise e Desenvolvimento de Sistemas, com grande interesse em iniciar minha carreira na área de Tecnologia da Informação. 
 Possuo conhecimentos em HTML, CSS, JavaScript, Python e Java, além de familiaridade com ferramentas como Power BI, Figma e conceitos de UI/UX. 
 Busco uma oportunidade onde eu possa aplicar meus conhecimentos, aprender continuamente e contribuir com soluções eficientes na área de TI. 
