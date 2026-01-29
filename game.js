@@ -3,22 +3,12 @@ const caixaInfo = document.getElementById("caixa-info");
 const conteudoInfo = document.getElementById("conteudo-info");
 const comemoracao = document.getElementById("comemoracao");
 
-/* CONTROLE DE VISITA */
-const topicosVisitados = {
-    dados: false,
-    formacao: false,
-    experiencia: false,
-    redes: false,
-    carta: false
-};
-
-let popupMostrado = false;
-
 /* POSIÇÃO */
 let x = window.innerWidth / 2;
 let y = window.innerHeight / 2;
-const velocidade = 2.5;
+const velocidade = 3;
 
+/* ATUALIZA POSIÇÃO */
 function atualizarPosicao() {
     personagem.style.left = x + "px";
     personagem.style.top = y + "px";
@@ -26,61 +16,54 @@ function atualizarPosicao() {
 }
 
 /* JOYSTICK */
-function configurarJoystick(id, callback) {
-    const joystick = document.getElementById(id);
-    const handle = joystick.querySelector(".joystick-handle");
-    let ativo = false;
+const joystick = document.getElementById("joystick");
+const handle = joystick.querySelector(".joystick-handle");
+let ativo = false;
 
-    joystick.addEventListener("touchstart", e => {
-        ativo = true;
-        e.preventDefault();
-    });
+joystick.addEventListener("touchstart", e => {
+    ativo = true;
+    e.preventDefault();
+});
 
-    joystick.addEventListener("touchend", () => {
-        ativo = false;
-        handle.style.transform = "translate(-50%, -50%)";
-    });
+joystick.addEventListener("touchend", () => {
+    ativo = false;
+    handle.style.transform = "translate(-50%, -50%)";
+});
 
-    joystick.addEventListener("touchmove", e => {
-        if (!ativo) return;
+joystick.addEventListener("touchmove", e => {
+    if (!ativo) return;
 
-        const touch = e.touches[0];
-        const rect = joystick.getBoundingClientRect();
+    const touch = e.touches[0];
+    const rect = joystick.getBoundingClientRect();
 
-        const dx = touch.clientX - (rect.left + rect.width / 2);
-        const dy = touch.clientY - (rect.top + rect.height / 2);
+    const dx = touch.clientX - (rect.left + rect.width / 2);
+    const dy = touch.clientY - (rect.top + rect.height / 2);
 
-        const max = 35;
-        const dist = Math.min(Math.sqrt(dx * dx + dy * dy), max);
-        const ang = Math.atan2(dy, dx);
+    const max = 40;
+    const dist = Math.min(Math.sqrt(dx*dx + dy*dy), max);
+    const ang = Math.atan2(dy, dx);
 
-        const mx = Math.cos(ang) * dist;
-        const my = Math.sin(ang) * dist;
+    const mx = Math.cos(ang) * dist;
+    const my = Math.sin(ang) * dist;
 
-        handle.style.transform = `translate(${mx - 21}px, ${my - 21}px)`;
-        callback(mx / max, my / max);
-    });
-}
+    handle.style.transform = `translate(${mx - 22}px, ${my - 22}px)`;
 
-/* MOVIMENTO */
-configurarJoystick("joystick-esquerdo", (dx, dy) => {
-    x += dx * velocidade * 2;
-    y += dy * velocidade * 2;
+    x += (mx / max) * velocidade;
+    y += (my / max) * velocidade;
+
     atualizarPosicao();
 });
 
-configurarJoystick("joystick-direito", () => {});
-
 /* COLISÕES */
 function verificarColisoes() {
-    verificarZona("zona-dados", dados, "dados");
-    verificarZona("zona-formacao", formacao, "formacao");
-    verificarZona("zona-experiencia", experiencia, "experiencia");
-    verificarZona("zona-redes", redes, "redes");
-    verificarZona("zona-carta", carta, "carta");
+    verificarZona("zona-dados", conteudoDados);
+    verificarZona("zona-formacao", conteudoFormacao);
+    verificarZona("zona-experiencia", conteudoExperiencia);
+    verificarZona("zona-redes", conteudoRedes);
+    verificarZona("zona-carta", conteudoCarta);
 }
 
-function verificarZona(id, func, chave) {
+function verificarZona(id, conteudo) {
     const zona = document.getElementById(id).getBoundingClientRect();
     const p = personagem.getBoundingClientRect();
 
@@ -91,33 +74,7 @@ function verificarZona(id, func, chave) {
         p.top < zona.bottom
     ) {
         caixaInfo.style.display = "block";
-        conteudoInfo.innerHTML = func();
+        conteudoInfo.innerHTML = conteudo();
         comemoracao.style.display = "block";
-
-        if (!topicosVisitados[chave]) {
-            topicosVisitados[chave] = true;
-            verificarConclusao();
-        }
-    }
-}
-
-/* POPUP FINAL */
-function verificarConclusao() {
-    if (Object.values(topicosVisitados).every(v => v) && !popupMostrado) {
-        popupMostrado = true;
-
-        const popup = document.createElement("div");
-        popup.id = "popup-parabens";
-        popup.innerHTML = `
-            <h2>Parabéns!</h2>
-            <p>Você explorou todo o currículo interativo.</p>
-        `;
-        document.body.appendChild(popup);
-
-        popup.style.display = "block";
-
-        setTimeout(() => {
-            popup.remove();
-        }, 5000);
     }
 }
