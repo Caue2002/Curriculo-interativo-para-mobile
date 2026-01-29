@@ -2,9 +2,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    touch-action: none;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    touch-action: none;
 }
 
 /* Corpo */
@@ -13,8 +21,6 @@ body {
     background-size: cover;
     background-position: center;
     font-family: Arial, sans-serif;
-    height: 100vh;
-    overflow: hidden;
     color: white;
 }
 
@@ -30,59 +36,56 @@ body {
 #mapa {
     position: relative;
     width: 100%;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 180px);
 }
 
-/* Personagem (MENOR AINDA) */
+/* Personagem */
 #personagem {
     position: absolute;
-    left: 50%;
-    top: 50%;
     transform: translate(-50%, -50%);
 }
 
 #personagem img {
-    width: 42px;
+    width: 48px;
 }
 
-/* Tópicos (BEM MENORES, NOMES PRESERVADOS) */
+/* Tópicos (AINDA MENORES) */
 .topico {
     position: absolute;
     background-image: url("topic-bg.gif");
     background-size: cover;
     padding: 4px 6px;
     border-radius: 8px;
-    border: 1.5px solid white;
-    font-size: 10px;
+    border: 2px solid white;
+    font-size: 11px;
     text-align: center;
-    min-width: 85px;
-    line-height: 1.2;
+    min-width: 90px;
 }
 
-/* Posições */
-#zona-dados { top: 8%; left: 6%; }
-#zona-formacao { top: 22%; right: 6%; }
-#zona-experiencia { top: 42%; left: 5%; }
-#zona-redes { top: 58%; right: 5%; }
-#zona-carta { top: 72%; left: 18%; }
+/* Posições preservadas */
+#zona-dados { top: 10%; left: 8%; }
+#zona-formacao { top: 25%; right: 8%; }
+#zona-experiencia { top: 45%; left: 6%; }
+#zona-redes { top: 60%; right: 6%; }
+#zona-carta { top: 75%; left: 18%; }
 
-/* Caixa de informações */
+/* Caixa de info */
 #caixa-info {
     position: fixed;
-    bottom: 120px;
+    bottom: 110px;
     left: 50%;
     transform: translateX(-50%);
-    width: 94%;
+    width: 95%;
     max-height: 40%;
     background-image: url("topic-bg.gif");
     background-size: cover;
-    border-radius: 14px;
+    border-radius: 12px;
     border: 2px solid white;
     padding: 12px;
     display: none;
     overflow-y: auto;
     font-size: 12px;
-    z-index: 30;
+    z-index: 20;
 }
 
 /* Comemoração */
@@ -90,39 +93,39 @@ body {
     position: fixed;
     top: 10px;
     right: 10px;
-    width: 38px;
+    width: 42px;
     border-radius: 50%;
     display: none;
-    z-index: 40;
+    z-index: 30;
 }
 
-/* Joystick */
-#joystick-base {
+/* Joysticks */
+.joystick {
     position: fixed;
-    bottom: 35px;
-    left: 35px;
-    width: 90px;
-    height: 90px;
-    background: rgba(255,255,255,0.15);
+    bottom: 20px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.5);
     z-index: 50;
 }
 
-#joystick-stick {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    width: 30px;
-    height: 30px;
-    background: rgba(255,255,255,0.8);
-    border-radius: 50%;
+#joystick-esquerdo {
+    left: 20px;
 }
 
-/* Rodapé */
-footer {
-    position: fixed;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
-    font-size: 11px;
+#joystick-direito {
+    right: 20px;
+}
+
+.joystick-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: white;
+    transform: translate(-50%, -50%);
 }

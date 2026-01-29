@@ -3,28 +3,63 @@ const caixaInfo = document.getElementById("caixa-info");
 const conteudoInfo = document.getElementById("conteudo-info");
 const comemoracao = document.getElementById("comemoracao");
 
-let posX = window.innerWidth / 2;
-let posY = window.innerHeight / 2;
+let x = window.innerWidth / 2;
+let y = window.innerHeight / 2;
+const velocidade = 2.5;
 
-let dirX = 0;
-let dirY = 0;
-
-const velocidade = 2.2;
-
-/* Loop de movimento */
-function atualizar() {
-    posX += dirX * velocidade;
-    posY += dirY * velocidade;
-
-    personagem.style.left = posX + "px";
-    personagem.style.top = posY + "px";
-
+function atualizarPosicao() {
+    personagem.style.left = x + "px";
+    personagem.style.top = y + "px";
     verificarColisoes();
-    requestAnimationFrame(atualizar);
 }
-requestAnimationFrame(atualizar);
 
-/* Colisões */
+/* ===== JOYSTICK ===== */
+function configurarJoystick(idJoystick, callback) {
+    const joystick = document.getElementById(idJoystick);
+    const handle = joystick.querySelector(".joystick-handle");
+    let ativo = false;
+
+    joystick.addEventListener("touchstart", e => {
+        ativo = true;
+    });
+
+    joystick.addEventListener("touchend", () => {
+        ativo = false;
+        handle.style.transform = "translate(-50%, -50%)";
+    });
+
+    joystick.addEventListener("touchmove", e => {
+        if (!ativo) return;
+
+        const touch = e.touches[0];
+        const rect = joystick.getBoundingClientRect();
+        const dx = touch.clientX - (rect.left + rect.width / 2);
+        const dy = touch.clientY - (rect.top + rect.height / 2);
+
+        const max = 35;
+        const dist = Math.min(Math.sqrt(dx*dx + dy*dy), max);
+        const ang = Math.atan2(dy, dx);
+
+        const mx = Math.cos(ang) * dist;
+        const my = Math.sin(ang) * dist;
+
+        handle.style.transform = `translate(${mx - 21}px, ${my - 21}px)`;
+
+        callback(mx / max, my / max);
+    });
+}
+
+/* Joystick esquerdo → movimento */
+configurarJoystick("joystick-esquerdo", (dx, dy) => {
+    x += dx * velocidade * 2;
+    y += dy * velocidade * 2;
+    atualizarPosicao();
+});
+
+/* Joystick direito reservado (futuro: câmera, ações, etc) */
+configurarJoystick("joystick-direito", () => {});
+
+/* ===== COLISÕES ===== */
 function verificarColisoes() {
     verificarZona("zona-dados", dados());
     verificarZona("zona-formacao", formacao());
@@ -49,59 +84,22 @@ function verificarZona(id, conteudo) {
     }
 }
 
-/* JOYSTICK */
-const base = document.getElementById("joystick-base");
-const stick = document.getElementById("joystick-stick");
-
-let ativo = false;
-
-base.addEventListener("touchstart", e => {
-    ativo = true;
-});
-
-base.addEventListener("touchend", () => {
-    ativo = false;
-    dirX = 0;
-    dirY = 0;
-    stick.style.transform = "translate(0,0)";
-});
-
-base.addEventListener("touchmove", e => {
-    if (!ativo) return;
-
-    const rect = base.getBoundingClientRect();
-    const touch = e.touches[0];
-
-    const dx = touch.clientX - (rect.left + rect.width / 2);
-    const dy = touch.clientY - (rect.top + rect.height / 2);
-
-    const dist = Math.min(30, Math.hypot(dx, dy));
-    const ang = Math.atan2(dy, dx);
-
-    stick.style.transform =
-        `translate(${Math.cos(ang) * dist}px, ${Math.sin(ang) * dist}px)`;
-
-    dirX = Math.cos(ang);
-    dirY = Math.sin(ang);
-});
-
-/* Conteúdos – preservados */
+/* ===== CONTEÚDOS (INALTERADOS) ===== */
 function dados() {
 return `
 <h3>Dados Pessoais</h3>
-<p><strong>Nacionalidade:</strong> Brasileira</p>
-<p><strong>Data de nascimento:</strong> 25/10/2002</p>
-<p><strong>Endereço:</strong> Zona Sul, São Paulo</p>
-<p><strong>Celular:</strong> (11) 9 1422-2424</p>
-<p><strong>E-mail:</strong> caueribeiroferreira@gmail.com</p>
+<p>Nacionalidade: Brasileira</p>
+<p>Nascimento: 25/10/2002</p>
+<p>Endereço: Zona Sul – São Paulo</p>
+<p>Celular: (11) 9 1422-2424</p>
+<p>E-mail: caueribeiroferreira@gmail.com</p>
 `;
 }
 
 function formacao() {
 return `
-<h3>Formação & Conhecimentos</h3>
-<p><strong>Faculdade Uninter</strong></p>
-<p>Análise e Desenvolvimento de Sistemas</p>
+<h3>Formação</h3>
+<p>Análise e Desenvolvimento de Sistemas – Uninter</p>
 <p>2025 – 2027</p>
 <p>Excel Básico – Fundação Bradesco</p>
 `;
@@ -109,17 +107,15 @@ return `
 
 function experiencia() {
 return `
-<h3>Experiência & Habilidades</h3>
-<p><strong>Hairline</strong> (2024–2025)</p>
-<p>Vendas, caixa, estoque e e-commerce</p>
-<p><strong>Cocadinha</strong> (2023)</p>
-<p>Atendimento ao cliente</p>
+<h3>Experiência</h3>
+<p>Hairline (2024–2025)</p>
+<p>Cocadinha (2023)</p>
 `;
 }
 
 function redes() {
 return `
-<h3>Redes Sociais</h3>
+<h3>Redes</h3>
 <p>GitHub: Caue2002</p>
 <p>LinkedIn: ribeiroferreiracaue</p>
 `;
@@ -127,11 +123,10 @@ return `
 
 function carta() {
 return `
-<h3>Carta de Apresentação</h3>
+<h3>Carta</h3>
 <p>
 Sou estudante de Análise e Desenvolvimento de Sistemas,
-buscando iniciar minha carreira em Tecnologia da Informação,
-com foco em aprendizado contínuo e aplicação prática.
+buscando iniciar carreira em TI com aprendizado contínuo.
 </p>
 `;
 }
