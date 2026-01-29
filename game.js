@@ -3,6 +3,18 @@ const caixaInfo = document.getElementById("caixa-info");
 const conteudoInfo = document.getElementById("conteudo-info");
 const comemoracao = document.getElementById("comemoracao");
 
+/*CONTROLE DE TÓPICOS VISITADOS  */
+const topicosVisitados = {
+    dados: false,
+    formacao: false,
+    experiencia: false,
+    redes: false,
+    carta: false
+};
+
+let popupMostrado = false;
+
+/*  POSIÇÃO */
 let x = window.innerWidth / 2;
 let y = window.innerHeight / 2;
 const velocidade = 2.5;
@@ -13,16 +25,13 @@ function atualizarPosicao() {
     verificarColisoes();
 }
 
-/* ===== JOYSTICK ===== */
-function configurarJoystick(idJoystick, callback) {
-    const joystick = document.getElementById(idJoystick);
+/* JOYSTICK */
+function configurarJoystick(id, callback) {
+    const joystick = document.getElementById(id);
     const handle = joystick.querySelector(".joystick-handle");
     let ativo = false;
 
-    joystick.addEventListener("touchstart", e => {
-        ativo = true;
-    });
-
+    joystick.addEventListener("touchstart", () => ativo = true);
     joystick.addEventListener("touchend", () => {
         ativo = false;
         handle.style.transform = "translate(-50%, -50%)";
@@ -33,6 +42,7 @@ function configurarJoystick(idJoystick, callback) {
 
         const touch = e.touches[0];
         const rect = joystick.getBoundingClientRect();
+
         const dx = touch.clientX - (rect.left + rect.width / 2);
         const dy = touch.clientY - (rect.top + rect.height / 2);
 
@@ -44,31 +54,29 @@ function configurarJoystick(idJoystick, callback) {
         const my = Math.sin(ang) * dist;
 
         handle.style.transform = `translate(${mx - 21}px, ${my - 21}px)`;
-
         callback(mx / max, my / max);
     });
 }
 
-/* Joystick esquerdo → movimento */
+/* Movimento */
 configurarJoystick("joystick-esquerdo", (dx, dy) => {
     x += dx * velocidade * 2;
     y += dy * velocidade * 2;
     atualizarPosicao();
 });
 
-/* Joystick direito reservado (futuro: câmera, ações, etc) */
 configurarJoystick("joystick-direito", () => {});
 
-/* ===== COLISÕES ===== */
+/* COLISÕES  */
 function verificarColisoes() {
-    verificarZona("zona-dados", dados());
-    verificarZona("zona-formacao", formacao());
-    verificarZona("zona-experiencia", experiencia());
-    verificarZona("zona-redes", redes());
-    verificarZona("zona-carta", carta());
+    verificarZona("zona-dados", dados, "dados");
+    verificarZona("zona-formacao", formacao, "formacao");
+    verificarZona("zona-experiencia", experiencia, "experiencia");
+    verificarZona("zona-redes", redes, "redes");
+    verificarZona("zona-carta", carta, "carta");
 }
 
-function verificarZona(id, conteudo) {
+function verificarZona(id, funcConteudo, chave) {
     const zona = document.getElementById(id).getBoundingClientRect();
     const p = personagem.getBoundingClientRect();
 
@@ -79,12 +87,46 @@ function verificarZona(id, conteudo) {
         p.top < zona.bottom
     ) {
         caixaInfo.style.display = "block";
-        conteudoInfo.innerHTML = conteudo;
+        conteudoInfo.innerHTML = funcConteudo();
         comemoracao.style.display = "block";
+
+        if (!topicosVisitados[chave]) {
+            topicosVisitados[chave] = true;
+            verificarConclusao();
+        }
     }
 }
 
-/* ===== CONTEÚDOS (INALTERADOS) ===== */
+/* VERIFICA SE TODOS FORAM VISTOS  */
+function verificarConclusao() {
+    const todosVistos = Object.values(topicosVisitados).every(v => v);
+
+    if (todosVistos && !popupMostrado) {
+        popupMostrado = true;
+        mostrarPopupParabens();
+    }
+}
+
+/* POPUP FINAL  */
+function mostrarPopupParabens() {
+    const popup = document.createElement("div");
+    popup.id = "popup-parabens";
+    popup.innerHTML = `
+        <h2>Parabéns!</h2>
+        <p>Você explorou todo o meu currículo interativo.</p>
+        <p>Obrigado por visitar.</p>
+    `;
+    document.body.appendChild(popup);
+
+    popup.style.display = "block";
+
+    setTimeout(() => {
+        popup.style.display = "none";
+        popup.remove();
+    }, 5000);
+}
+
+/* CONTEÚDOS */
 function dados() {
 return `
 <h3>Dados Pessoais</h3>
