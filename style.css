@@ -148,6 +148,7 @@ transform: scaleX(-1);
 /* Barra de progresso */
 #progresso {
 position: fixed;
+top: 0%;
 right: 10px;
 bottom: 10px;
 width: clamp(65px, 26vw, 125px);
@@ -196,7 +197,7 @@ to   { filter: drop-shadow(0 12px 16px rgba(0,0,0,.75)); }
 
 /*Acessibilidade: reduzir animações */
 @media (prefers-reduced-motion: reduce) {
-  #imagem-usuario { animation: none; }
-  .topico::after { animation: none; }
-  #progresso .barra { transition: none; }
+#imagem-usuario { animation: none; }
+.topico::after { animation: none; }
+#progresso .barra { transition: none; }
 }
