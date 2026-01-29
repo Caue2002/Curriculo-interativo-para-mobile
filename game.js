@@ -3,54 +3,26 @@ const caixaInfo = document.getElementById("caixa-info");
 const conteudoInfo = document.getElementById("conteudo-info");
 const comemoracao = document.getElementById("comemoracao");
 
-let x = window.innerWidth / 2;
-let y = window.innerHeight / 2;
-const velocidade = 3;
+let posX = window.innerWidth / 2;
+let posY = window.innerHeight / 2;
 
-let direcaoAtual = null;
-let intervaloMovimento = null;
+let dirX = 0;
+let dirY = 0;
 
-/* Movimento contínuo */
-function iniciarMovimento(direcao) {
-    direcaoAtual = direcao;
+const velocidade = 2.2;
 
-    if (intervaloMovimento) return;
+/* Loop de movimento */
+function atualizar() {
+    posX += dirX * velocidade;
+    posY += dirY * velocidade;
 
-    intervaloMovimento = setInterval(() => {
-        if (direcaoAtual === "cima") y -= velocidade;
-        if (direcaoAtual === "baixo") y += velocidade;
-        if (direcaoAtual === "esquerda") x -= velocidade;
-        if (direcaoAtual === "direita") x += velocidade;
+    personagem.style.left = posX + "px";
+    personagem.style.top = posY + "px";
 
-        personagem.style.left = x + "px";
-        personagem.style.top = y + "px";
-
-        verificarColisoes();
-    }, 16);
+    verificarColisoes();
+    requestAnimationFrame(atualizar);
 }
-
-function pararMovimento() {
-    clearInterval(intervaloMovimento);
-    intervaloMovimento = null;
-    direcaoAtual = null;
-}
-
-/* Eventos touch e mouse */
-document.querySelectorAll("#controles button").forEach(botao => {
-    const dir = botao.dataset.dir;
-
-    botao.addEventListener("touchstart", e => {
-        e.preventDefault();
-        iniciarMovimento(dir);
-    });
-
-    botao.addEventListener("touchend", pararMovimento);
-    botao.addEventListener("touchcancel", pararMovimento);
-
-    botao.addEventListener("mousedown", () => iniciarMovimento(dir));
-    botao.addEventListener("mouseup", pararMovimento);
-    botao.addEventListener("mouseleave", pararMovimento);
-});
+requestAnimationFrame(atualizar);
 
 /* Colisões */
 function verificarColisoes() {
@@ -77,13 +49,49 @@ function verificarZona(id, conteudo) {
     }
 }
 
-/* Conteúdos */
+/* JOYSTICK */
+const base = document.getElementById("joystick-base");
+const stick = document.getElementById("joystick-stick");
+
+let ativo = false;
+
+base.addEventListener("touchstart", e => {
+    ativo = true;
+});
+
+base.addEventListener("touchend", () => {
+    ativo = false;
+    dirX = 0;
+    dirY = 0;
+    stick.style.transform = "translate(0,0)";
+});
+
+base.addEventListener("touchmove", e => {
+    if (!ativo) return;
+
+    const rect = base.getBoundingClientRect();
+    const touch = e.touches[0];
+
+    const dx = touch.clientX - (rect.left + rect.width / 2);
+    const dy = touch.clientY - (rect.top + rect.height / 2);
+
+    const dist = Math.min(30, Math.hypot(dx, dy));
+    const ang = Math.atan2(dy, dx);
+
+    stick.style.transform =
+        `translate(${Math.cos(ang) * dist}px, ${Math.sin(ang) * dist}px)`;
+
+    dirX = Math.cos(ang);
+    dirY = Math.sin(ang);
+});
+
+/* Conteúdos – preservados */
 function dados() {
 return `
 <h3>Dados Pessoais</h3>
 <p><strong>Nacionalidade:</strong> Brasileira</p>
-<p><strong>Nascimento:</strong> 25/10/2002</p>
-<p><strong>Endereço:</strong> Zona Sul – São Paulo</p>
+<p><strong>Data de nascimento:</strong> 25/10/2002</p>
+<p><strong>Endereço:</strong> Zona Sul, São Paulo</p>
 <p><strong>Celular:</strong> (11) 9 1422-2424</p>
 <p><strong>E-mail:</strong> caueribeiroferreira@gmail.com</p>
 `;
@@ -91,8 +99,8 @@ return `
 
 function formacao() {
 return `
-<h3>Formação</h3>
-<p><strong>Uninter</strong></p>
+<h3>Formação & Conhecimentos</h3>
+<p><strong>Faculdade Uninter</strong></p>
 <p>Análise e Desenvolvimento de Sistemas</p>
 <p>2025 – 2027</p>
 <p>Excel Básico – Fundação Bradesco</p>
@@ -101,17 +109,17 @@ return `
 
 function experiencia() {
 return `
-<h3>Experiência</h3>
+<h3>Experiência & Habilidades</h3>
 <p><strong>Hairline</strong> (2024–2025)</p>
 <p>Vendas, caixa, estoque e e-commerce</p>
 <p><strong>Cocadinha</strong> (2023)</p>
-<p>Atendimento e estoque</p>
+<p>Atendimento ao cliente</p>
 `;
 }
 
 function redes() {
 return `
-<h3>Redes</h3>
+<h3>Redes Sociais</h3>
 <p>GitHub: Caue2002</p>
 <p>LinkedIn: ribeiroferreiracaue</p>
 `;
@@ -119,11 +127,11 @@ return `
 
 function carta() {
 return `
-<h3>Carta</h3>
+<h3>Carta de Apresentação</h3>
 <p>
-Sou estudante de Análise e Desenvolvimento de Sistemas, com grande interesse
-em iniciar minha carreira em Tecnologia da Informação, buscando aprendizado
-contínuo e aplicação prática dos conhecimentos.
+Sou estudante de Análise e Desenvolvimento de Sistemas,
+buscando iniciar minha carreira em Tecnologia da Informação,
+com foco em aprendizado contínuo e aplicação prática.
 </p>
 `;
 }
